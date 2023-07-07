@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './WeatherForm.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./WeatherForm.css";
 
 const WeatherForm = ({ getWeatherData }) => {
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState("");
   const [loadingLocation, setLoadingLocation] = useState(false);
 
   const handleLocationClick = () => {
@@ -15,18 +15,18 @@ const WeatherForm = ({ getWeatherData }) => {
           getCityName(latitude, longitude);
         },
         (error) => {
-          console.error('Error getting user location:', error);
+          console.error("Error getting user location:", error);
           setLoadingLocation(false);
         }
       );
     } else {
-      console.error('Geolocation is not supported by this browser.');
+      console.error("Geolocation is not supported by this browser.");
     }
   };
 
   const getCityName = async (latitude, longitude) => {
     try {
-      const apiKey = '74c61ddec52f4b5c98e8874813b00136'; // Replace with your reverse geocoding API key
+      const apiKey = "74c61ddec52f4b5c98e8874813b00136"; // Replace with your reverse geocoding API key
       const apiUrl = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${apiKey}`;
       const response = await axios.get(apiUrl);
       const { data } = response;
@@ -34,7 +34,7 @@ const WeatherForm = ({ getWeatherData }) => {
       setLocation(city);
       getWeatherData(city);
     } catch (error) {
-      console.error('Error fetching location:', error);
+      console.error("Error fetching location:", error);
     } finally {
       setLoadingLocation(false);
     }
@@ -46,9 +46,9 @@ const WeatherForm = ({ getWeatherData }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (location.trim() !== '') {
+    if (location.trim() !== "") {
       getWeatherData(location);
-      setLocation('');
+      setLocation("");
     }
   };
 
@@ -66,16 +66,17 @@ const WeatherForm = ({ getWeatherData }) => {
           <button type="submit" className="btn btn-primary">
             Get Weather
           </button>
+
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={handleLocationClick}
+            disabled={loadingLocation}
+          >
+            {loadingLocation ? "Fetching Location..." : "Use My Location"}
+          </button>
         </div>
       </div>
-      <button
-        type="button"
-        className="btn btn-secondary"
-        onClick={handleLocationClick}
-        disabled={loadingLocation}
-      >
-        {loadingLocation ? 'Fetching Location...' : 'Use My Location'}
-      </button>
     </form>
   );
 };
