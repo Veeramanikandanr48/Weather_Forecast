@@ -1,0 +1,32 @@
+.weather-data {
+    padding: 20px;
+    color: black;
+  }
+  
+  .weather-location {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .weather-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .weather-temperature,
+  .weather-description {
+    margin-bottom: 5px;
+  }
+
+  .weather-temperature {
+    font-size: 100%;
+  }
+
+  .weather-icon-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  
