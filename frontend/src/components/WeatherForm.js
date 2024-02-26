@@ -32,13 +32,13 @@ const WeatherForm = ({ getWeatherData, loading }) => {
 
   const getCityName = async (latitude, longitude) => {
     try {
-      const apiKey = 74c61ddec52f4b5c98e8874813b00136; // Use the correct environment variable name
+      const apiKey = 74c61ddec52f4b5c98e8874813b00136;
       const apiUrl = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${apiKey}`;
       const response = await axios.get(apiUrl);
       const { data } = response;
       const { city } = data.features[0].properties;
       setLocation(city);
-      getWeatherData(city);
+      getWeatherData(city); // Call getWeatherData with the obtained city name
     } catch (error) {
       console.error("Error fetching location:", error);
     } finally {
