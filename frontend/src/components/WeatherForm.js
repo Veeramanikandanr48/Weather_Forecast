@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import "./WeatherForm.css";
 
-const WeatherForm = ({ getWeatherData, loading }) => {
+const WeatherForm = ({ onGetWeatherData, loading }) => {
   const [location, setLocation] = useState("");
   const [loadingLocation, setLoadingLocation] = useState(false);
 
@@ -38,7 +38,7 @@ const WeatherForm = ({ getWeatherData, loading }) => {
       const { data } = response;
       const { city } = data.features[0].properties;
       setLocation(city);
-      getWeatherData(city); // Call getWeatherData with the obtained city name
+      onGetWeatherData(city); // Use the callback to send the location to the parent component
     } catch (error) {
       console.error("Error fetching location:", error);
     } finally {
@@ -49,7 +49,7 @@ const WeatherForm = ({ getWeatherData, loading }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (location.trim() !== "") {
-      getWeatherData(location);
+      onGetWeatherData(location);
       setLocation("");
     }
   };
@@ -84,7 +84,7 @@ const WeatherForm = ({ getWeatherData, loading }) => {
 };
 
 WeatherForm.propTypes = {
-  getWeatherData: PropTypes.func.isRequired,
+  onGetWeatherData: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
 };
 
