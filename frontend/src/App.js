@@ -8,7 +8,7 @@ const App = () => {
   const [weatherData, setWeatherData] = useState(null);
 
   const getWeatherData = (location) => {
-    const apiUrl = `http://localhost:3000/weather/${location}`;
+    const apiUrl = `https://weather-forecast-7aid.onrender.com/weather/${location}`;
 
     axios
       .get(apiUrl)
