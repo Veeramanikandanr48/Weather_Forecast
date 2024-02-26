@@ -1,10 +1,16 @@
+// WeatherForm.jsx
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import "./WeatherForm.css";
 
-const WeatherForm = ({ getWeatherData }) => {
+const WeatherForm = ({ getWeatherData, loading }) => {
   const [location, setLocation] = useState("");
   const [loadingLocation, setLoadingLocation] = useState(false);
+
+  useEffect(() => {
+    handleLocationClick();
+  }, []); // Fetch location on component mount
 
   const handleLocationClick = () => {
     if (navigator.geolocation) {
@@ -26,7 +32,7 @@ const WeatherForm = ({ getWeatherData }) => {
 
   const getCityName = async (latitude, longitude) => {
     try {
-      const apiKey = "74c61ddec52f4b5c98e8874813b00136"; // Replace with your reverse geocoding API key
+      const apiKey = process.env.REACT_APP_GEO_API_KEY;
       const apiUrl = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${apiKey}`;
       const response = await axios.get(apiUrl);
       const { data } = response;
@@ -39,10 +45,6 @@ const WeatherForm = ({ getWeatherData }) => {
       setLoadingLocation(false);
     }
   };
-
-  useEffect(() => {
-    handleLocationClick();
-  }, []); // Fetch location on component mount
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,15 +65,15 @@ const WeatherForm = ({ getWeatherData }) => {
           placeholder="Enter a location"
         />
         <div className="input-group-append">
-          <button type="submit" className="btn btn-primary">
-            Get Weather
+          <button type="submit" className="btn btn-primary" disabled={loading}>
+            {loading ? "Fetching Weather..." : "Get Weather"}
           </button>
 
           <button
             type="button"
             className="btn btn-secondary"
             onClick={handleLocationClick}
-            disabled={loadingLocation}
+            disabled={loadingLocation || loading}
           >
             {loadingLocation ? "Fetching Location..." : "Use My Location"}
           </button>
@@ -79,6 +81,11 @@ const WeatherForm = ({ getWeatherData }) => {
       </div>
     </form>
   );
+};
+
+WeatherForm.propTypes = {
+  getWeatherData: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default WeatherForm;
