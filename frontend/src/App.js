@@ -17,6 +17,7 @@ const App = () => {
       const apiUrl = `https://weather-forecast-7aid.onrender.com/weather/${location}`;
       const response = await axios.get(apiUrl);
       const { data } = response;
+      const { city } =  data.features[6];
       setWeatherData(data);
     } catch (error) {
       console.error("Error fetching weather data:", error);
