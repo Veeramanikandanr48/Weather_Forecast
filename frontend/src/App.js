@@ -14,7 +14,7 @@ const App = () => {
     setLoadingWeather(true);
 
     try {
-      const apiUrl = `${process.env.REACT_APP_WEATHER_API_URL}/weather/${location}`;
+      const apiUrl = `https://weather-forecast-7aid.onrender.com/weather/${location}`;
       const response = await axios.get(apiUrl);
       const { data } = response;
       setWeatherData(data);
