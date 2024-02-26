@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "Weather forecast application",
   "scripts": {
-    "start": "react-scripts start"
+    "start": "nodemon server.js",
+    "build": "npm i"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
   },
   "dependencies": {
     "axios": "^0.21.1",
