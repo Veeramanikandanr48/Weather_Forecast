@@ -1,4 +1,3 @@
-// WeatherForm.jsx
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -32,7 +31,7 @@ const WeatherForm = ({ onGetWeatherData, loading }) => {
 
   const getCityName = async (latitude, longitude) => {
     try {
-      const apiKey = "74c61ddec52f4b5c98e8874813b00136";
+      const apiKey = "74c61ddec52f4b5c98e8874813b00136"; // Put the API key in quotes
       const apiUrl = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${apiKey}`;
       const response = await axios.get(apiUrl);
       const { data } = response;
