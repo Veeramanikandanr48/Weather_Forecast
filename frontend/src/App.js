@@ -30,7 +30,7 @@ const App = () => {
     <div className="container-fluid">
       <div className="card">
         <h1>Weather Forecast</h1>
-        <WeatherForm getWeatherData={getWeatherData} loading={loadingWeather} />
+        <WeatherForm onGetWeatherData={getWeatherData} loading={loadingWeather} />
         {error && <p className="error-message">{error}</p>}
         {weatherData && (
           <WeatherData
