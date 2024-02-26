@@ -1,18 +1,20 @@
-import React from 'react';
-import './WeatherData.css';
-import { RiCloudFill, RiSunFill } from 'react-icons/ri';
-import { FaCloudRain, FaSnowflake } from 'react-icons/fa';
+// WeatherData.jsx
+import React from "react";
+import "./WeatherData.css";
+import { RiCloudFill, RiSunFill } from "react-icons/ri";
+import { FaCloudRain, FaSnowflake } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 const WeatherData = ({ weather }) => {
   const getWeatherIcon = (description) => {
     switch (description) {
-      case 'Clear':
+      case "Clear":
         return <RiSunFill className="weather-icon" size={72} color="#FDB813" />;
-      case 'Clouds':
+      case "Clouds":
         return <RiCloudFill className="weather-icon" size={72} color="#6699CC" />;
-      case 'Rain':
+      case "Rain":
         return <FaCloudRain className="weather-icon" size={72} color="#5384AF" />;
-      case 'Snow':
+      case "Snow":
         return <FaSnowflake className="weather-icon" size={72} color="#9ED7FF" />;
       default:
         return <RiCloudFill className="weather-icon" size={72} color="#6699CC" />;
@@ -29,6 +31,14 @@ const WeatherData = ({ weather }) => {
       </div>
     </div>
   );
+};
+
+WeatherData.propTypes = {
+  weather: PropTypes.shape({
+    location: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    temperature: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default WeatherData;
