@@ -1,31 +1,37 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import WeatherForm from './components/WeatherForm';
-import WeatherData from './components/WeatherData';
-import './App.css';
+// App.jsx
+import React, { useState } from "react";
+import axios from "axios";
+import WeatherForm from "./components/WeatherForm";
+import WeatherData from "./components/WeatherData";
+import "./App.css";
 
 const App = () => {
   const [weatherData, setWeatherData] = useState(null);
+  const [loadingWeather, setLoadingWeather] = useState(false);
+  const [error, setError] = useState(null);
 
-  const getWeatherData = (location) => {
-    const apiUrl = `https://weather-forecast-7aid.onrender.com/weather/${location}`;
+  const getWeatherData = async (location) => {
+    setLoadingWeather(true);
 
-    axios
-      .get(apiUrl)
-      .then((response) => {
-        const { data } = response;
-        setWeatherData(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching weather data:', error);
-      });
+    try {
+      const apiUrl = `${process.env.REACT_APP_WEATHER_API_URL}/weather/${location}`;
+      const response = await axios.get(apiUrl);
+      const { data } = response;
+      setWeatherData(data);
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+      setError("Error fetching weather data. Please try again.");
+    } finally {
+      setLoadingWeather(false);
+    }
   };
 
   return (
     <div className="container-fluid">
       <div className="card">
         <h1>Weather Forecast</h1>
-        <WeatherForm getWeatherData={getWeatherData} />
+        <WeatherForm getWeatherData={getWeatherData} loading={loadingWeather} />
+        {error && <p className="error-message">{error}</p>}
         {weatherData && (
           <WeatherData
             weather={{
