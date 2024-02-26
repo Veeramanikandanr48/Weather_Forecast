@@ -32,7 +32,7 @@ const WeatherForm = ({ getWeatherData, loading }) => {
 
   const getCityName = async (latitude, longitude) => {
     try {
-      const apiKey = process.env.REACT_APP_GEO_API_KEY;
+      const apiKey = process.env.74c61ddec52f4b5c98e8874813b00136;
       const apiUrl = `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${apiKey}`;
       const response = await axios.get(apiUrl);
       const { data } = response;
